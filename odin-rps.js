@@ -3,7 +3,7 @@ function getComputerChoice ()
 {
     //assigns a random number between 1-9
     let randomNum = Math.floor(Math.random() * 10);
-
+    console.log(randomNum);
     //rock if random number is 1-3
     if (randomNum <= 3)
     {
@@ -49,10 +49,85 @@ function getHumanChoice()
     //modify to check user input
 }
 
+//function to play round of game with given input
+function playRound(humanChoice, computerChoice)
+{
+    //checks matchup on human choice of rock
+    if (humanChoice == "rock")
+    {
+        //losing condition
+        if (computerChoice == "paper")
+        {
+            computerScore++;
+            return console.log("You lose! The paper beat your rock.");
+        }
+        //winning condition
+        else if (computerChoice == "scissors")
+        {
+            humanScore++;
+            return console.log("You win! Your rock beat the scissors.")
+        }
+        //tie
+        else 
+        {
+            return console.log("It's a tie! Two rocks!")
+        }
+    }
+
+    //checks matchup on human choice of paper
+    else if (humanChoice == "paper")
+    {
+        //losing condition
+        if (computerChoice == "scissors")
+        {
+            computerScore++;
+            return console.log("You lose! The scissors beat your paper.");
+        }
+        //winning condition
+        else if (computerChoice == "rock")
+        {
+            humanScore++;
+            return console.log("You win! Your paper beat the rock.")
+        }
+        //tie
+        else 
+        {
+            return console.log("It's a tie! Two papers!")
+        }
+    }
+
+    //checks matchup for human choice of scissors
+    else 
+    {
+        //losing condition
+        if (computerChoice == "rock")
+        {
+            computerScore++;
+            return console.log("You lose! The rock beat your scissors.");
+        }
+        //winning condition
+        else if (computerChoice == "paper")
+        {
+            humanScore++;
+            return console.log("You win! Your scissors beat the paper.")
+        }
+        //tie
+        else 
+        {
+            return console.log("It's a tie! Two scissors!")
+        }
+    }
+}
 
 
-//stores computer's choice in a variable
+//stores computer's choice in variable
 let computerChoice = getComputerChoice();
+
+//stores human's choice in variable
 let humanChoice = getHumanChoice();
 
-console.log(humanChoice);
+//variables to keep track of each score
+let humanScore = 0;
+let computerScore = 0;
+
+playRound (humanChoice, computerChoice);
