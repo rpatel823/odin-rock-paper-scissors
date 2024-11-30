@@ -1,7 +1,7 @@
-//function to generation computer choice
+//generates computer choice for a round
 function getComputerChoice ()
 {
-    //assigns a random number between 1-9
+    //assigns a random number between 1-9 (3 values for each option)
     let randomNum = Math.floor(Math.random() * 10);
     
     //rock if random number is 1-3
@@ -24,12 +24,38 @@ function getComputerChoice ()
 //function to get user's choice
 function getHumanChoice()
 {
-    //prompt user for their choice
     let humanChoice = prompt("Please choose Rock, Paper, or Scissors:");
+
+    //if prompt is canceled, user forfeits round
+    if (humanChoice == null)
+    {
+        return null;
+    }
+
+    //remove white space from user choice
+    humanChoice = humanChoice.trim();
 
     //convert choice to lowercase
     humanChoice = humanChoice.toLowerCase();
-    
+
+    //if user enters invalid choice, re-prompt
+    while (humanChoice != "rock" && humanChoice != "paper" && humanChoice != "scissors")
+    {
+        humanChoice = prompt("Invalid option! Please choose Rock, Paper, or Scissors:");
+        
+        //if prompt is canceled, user forfeits round
+        if (humanChoice == null)
+        {
+            return null;
+        }
+
+        //remove white space from user choice
+        humanChoice = humanChoice.trim();
+
+        //convert choice to lowercase
+        humanChoice = humanChoice.toLowerCase();
+    }
+
     //return matching choice
     if (humanChoice == "rock")
     {
@@ -43,10 +69,8 @@ function getHumanChoice()
 
     else 
     {
-        return "scissors"
+        return "scissors";
     }
-
-    //modify to check user input
 }
 
 //function to play the game
@@ -120,23 +144,34 @@ function playGame()
             }
         }
     }
-    //stores computer's choice in variable
-    //let computerChoice = getComputerChoice;
-
-    //stores human's choice in variable
-    //let humanChoice = getHumanChoice;
-
+   
     //variables to track each score
     let humanScore = 0;
     let computerScore = 0;
+    
+    //variables to store choice
+    let humanChoice = "";
+    let computerChoice = "";
 
-    //play best of five
+    //play five rounds of the game
     for (let i = 0; i <= 4; i++)
-    {
-        playRound (getHumanChoice(), getComputerChoice());
-    }
+        {
+            humanChoice = getHumanChoice();
+            computerChoice = getComputerChoice();
 
-    //show scores
+            //forfeit round if user choice canceled prompt
+            if (humanChoice == null)
+            {
+                console.log ("You canceled the round.")
+            }
+
+            else 
+            {
+                playRound (humanChoice, computerChoice);
+            }
+        }
+
+    //show scores after game ends
     console.log("Your score: " + humanScore);
     console.log("Computer score: " + computerScore);
 }
